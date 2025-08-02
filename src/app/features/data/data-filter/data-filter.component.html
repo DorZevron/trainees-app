@@ -1,0 +1,11 @@
+<div class="fields">
+    <mat-form-field appearance="outline" class="filter-field">
+        <mat-label>Filter</mat-label>
+        <input matInput [(ngModel)]="filter" (input)="onChange()" placeholder="ID:101, >80, <2025-01-01 or >01-01-2025">
+    </mat-form-field>
+
+    <div class="actions">
+        <button mat-raised-button (click)="onAddorUpdate()">Add</button>
+        <!-- <button mat-raised-button (click)="onRemove()" [disabled]="form.invalid">Remove</button> -->
+    </div>
+</div>

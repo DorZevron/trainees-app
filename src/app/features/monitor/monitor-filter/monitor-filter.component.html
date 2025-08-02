@@ -1,0 +1,19 @@
+<div class="monitor-filter">
+    <div class="fields">
+        <mat-form-field appearance="outline" class="filter-field">
+            <mat-label>IDs</mat-label>
+            <input matInput [(ngModel)]="idFilter">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="filter-field">
+            <mat-label>Name</mat-label>
+            <input matInput [(ngModel)]="nameFilter">
+        </mat-form-field>
+    </div>
+    <div class="actions">
+        <form [formGroup]="formCheckBox">
+            <mat-checkbox formControlName="passed" (change)="onPassedChange()">Passed</mat-checkbox>
+            <mat-checkbox formControlName="failed" (change)="onFailedChange()">Failed</mat-checkbox>
+        </form>
+    </div>
+</div>
