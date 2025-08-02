@@ -1,0 +1,32 @@
+<div class="form">
+    <form [formGroup]="form">
+        <mat-form-field class="field">
+            <mat-label>id</mat-label>
+            <input matInput formControlName="id" type="number" [readonly]="true" placeholder="Auto generated">
+        </mat-form-field>
+        <mat-form-field class="field">
+            <mat-label>name</mat-label>
+            <input matInput formControlName="name">
+        </mat-form-field>
+        <mat-form-field class="field">
+            <mat-label>subject</mat-label>
+            <input matInput formControlName="subject">
+        </mat-form-field>
+        <mat-form-field class="field">
+            <mat-label>grade</mat-label>
+            <input matInput type="number" formControlName="grade">
+        </mat-form-field>
+        <mat-form-field class="field">
+            <mat-label>date</mat-label>
+            <input matInput type="date" formControlName="date">
+        </mat-form-field>
+    </form>
+
+    <div class="button-row">
+        <button mat-raised-button (click)="onRemove()" [disabled]="form.invalid">
+            Remove
+        </button>
+        <button mat-raised-button (click)="clearForm()" [disabled]="form.invalid">Clear</button>
+    </div>
+
+</div>

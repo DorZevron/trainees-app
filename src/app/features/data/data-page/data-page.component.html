@@ -1,0 +1,16 @@
+<div class="data-page">
+
+    <div class="filter">
+        <app-data-filter (filterChanged)="onFilter($event)" [filter]="filtertxt" [trainee]="selected" [form]="form"
+            (addNewOne)="onAddOrUpdate($event)"></app-data-filter>
+        <div *ngIf="errorMessage" class="error-message">
+            {{ errorMessage }}
+        </div>
+    </div>
+    <div class="main">
+        <app-data-table [trainees]="traineesFiltered" [pageNum]="pageNum" (selectedRow)="onSelect($event)"
+            [selectedTrainee]="selected" (pageIndex)="onPageIndex($event)"></app-data-table>
+
+        <app-data-details [trainee]="selected" [form]="form" (remove)="onRemove($event)"></app-data-details>
+    </div>
+</div>

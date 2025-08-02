@@ -1,0 +1,17 @@
+<mat-toolbar class="navbar">
+    <!-- <button matIconButton class="example-icon" aria-label="Example icon-button with menu icon">
+        <mat-icon>menu</mat-icon>
+    </button> -->
+    <span>My App</span>
+    <div class="spacer">
+        <button mat-raised-button (click)="navigateTo('data')">
+            Data
+        </button>
+        <button mat-raised-button (click)="navigateTo('analysis')">
+            Analysis
+        </button>
+        <button mat-raised-button (click)="navigateTo('monitor')">
+            Monitor
+        </button>
+    </div>
+</mat-toolbar>
