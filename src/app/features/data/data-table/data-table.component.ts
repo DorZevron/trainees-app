@@ -15,10 +15,10 @@ import { MatButtonModule } from '@angular/material/button';
 export class DataTableComponent {
 
   @Input() trainees: Trainee[] = [];
-  @Output() selectedRow = new EventEmitter<Trainee>();
-  @Output() pageIndex = new EventEmitter<number>();
   @Input() selectedTrainee!: Trainee | null;
   @Input() pageNum: number = 0;
+  @Output() selectedRow = new EventEmitter<Trainee>();
+  @Output() pageIndex = new EventEmitter<number>();
   pageSize: number = 10;
 
   selectedId: number | null = null;
@@ -40,7 +40,6 @@ export class DataTableComponent {
       this.selectedId = this.selectedTrainee.id;
     }
   }
-
 
   get currentPage() {
     const start = this.pageNum * this.pageSize;

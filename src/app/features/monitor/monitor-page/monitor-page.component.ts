@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { MonitorTableComponent } from "../monitor-table/monitor-table.component";
 import * as MonitorSelectors from '../../../core/state/monitor.selectors';
 import * as MonitorActions from '../../../core/state/monitor.actions';
-import * as selectTrainees from '../../../core/state/data.selectors';
+import * as DataSelectors from '../../../core/state/data.selectors';
 import { Store } from '@ngrx/store';
 import { Trainee } from '../../../core/interfaces/trainee.interface';
 import { Observable } from 'rxjs';
@@ -23,10 +23,10 @@ export class MonitorPageComponent {
 
   private store = inject(Store);
 
-  $trainees: Observable<Trainee[]> = this.store.select(selectTrainees.selectTrainees);
+  $trainees: Observable<Trainee[]> = this.store.select(DataSelectors.selectTraineesFiltered);
   $cbPassed: Observable<boolean> = this.store.select(MonitorSelectors.selectCbPassed);
   $cbFailed: Observable<boolean> = this.store.select(MonitorSelectors.selectCbFailed);
-  $traineesFiltered: Observable<TraineeMonitor[]> = this.store.select(MonitorSelectors.selectTraineesFiltered);
+  $traineesFilteredMonitor: Observable<TraineeMonitor[]> = this.store.select(MonitorSelectors.selectTraineesFiltered);
 
   trainees: Trainee[] = [];
   idFilter: string = '';
@@ -46,7 +46,6 @@ export class MonitorPageComponent {
   ngOnInit(): void {
     console.log('MonitorPageComponent נוצר');
 
-
     this.$trainees.subscribe(trainees => {
       if (trainees.length !== 0) {
         this.trainees = trainees;
@@ -58,19 +57,16 @@ export class MonitorPageComponent {
     this.$cbPassed.subscribe(cbPassed => {
       if (cbPassed !== undefined) {
         this.formCheckBox.patchValue({ passed: cbPassed });
-
-        // this.formCheckBox.get('passed')?.setValue(cbPassed);
       }
     });
 
     this.$cbFailed.subscribe(cbFailed => {
       if (cbFailed !== undefined) {
         this.formCheckBox.patchValue({ failed: cbFailed });
-        // this.formCheckBox.get('failed')?.setValue(cbFailed);
       }
     });
 
-    this.$traineesFiltered.subscribe(traineesFiltered => {
+    this.$traineesFilteredMonitor.subscribe(traineesFiltered => {
       if (traineesFiltered.length !== 0) {
         this.traineesFiltered = traineesFiltered;
       } else {
@@ -91,7 +87,6 @@ export class MonitorPageComponent {
 
   getNewTraineeAverages() {
     const grouped = new Map<string, { id: number, name: string, subject: string, average: number, exams: number, sum: number }>();
-
     this.trainees.forEach(trainee => {
       const key = `${trainee.name}|| ${trainee.subject}`;
       if (!grouped.has(key)) {
@@ -116,6 +111,7 @@ export class MonitorPageComponent {
     this.filter();
   }
 
+
   filter() {
     this.traineesFiltered = [];
     let arr: TraineeMonitor[] = [...this.newStructureTrainees];
@@ -137,6 +133,7 @@ export class MonitorPageComponent {
       this.traineesFiltered.push(...failedArr);
     }
   }
+
 
   onCbPassed(value: boolean) {
     this.formCheckBox.get('passed')?.setValue(value);

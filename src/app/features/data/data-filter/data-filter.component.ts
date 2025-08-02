@@ -23,7 +23,6 @@ export class DataFilterComponent {
   @Input() filter: string = '';
 
 
-
   onChange() {
     this.filterChanged.emit(this.filter);
   }

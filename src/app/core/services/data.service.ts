@@ -34,9 +34,7 @@ export class DataService {
       observer.next(this.trainees);
       observer.complete();
     });
-    // return of(this.trainees);
   }
-
 
   addTrainee(trainee: Trainee): Trainee[] {
     this.trainees.push({ ...trainee, id: this.trainees.length + 1 });

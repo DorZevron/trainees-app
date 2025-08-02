@@ -23,6 +23,7 @@ export const dataReducer = createReducer(
     initialState,
     on(DataActions.setTrainees, (state, { trainees }) => ({ ...state, trainees })),
     on(DataActions.setTraineesFiltered, (state, { traineesFiltered }) => ({ ...state, traineesFiltered })),
+    // on(DataActions.setTraineeRow, (state, { selectedRow }) => ({ ...state, selectedRow })),
     on(DataActions.addTrainee, (state, { trainee }) => ({ ...state, trainees: [...state.trainees, trainee] })),
     on(DataActions.updateTrainee, (state, { trainee }) => ({
         ...state,
