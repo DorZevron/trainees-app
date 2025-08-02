@@ -4,6 +4,8 @@ import { Trainee } from '../interfaces/trainee.interface';
 export const loadTrainees = createAction('[Data] Load');
 export const setTrainees = createAction('[Data] Set', props<{ trainees: Trainee[] }>());
 export const setTraineesFiltered = createAction('[Data] Set Filtered', props<{ traineesFiltered: Trainee[] }>());
+// export const setTraineeRow = createAction('[Data] Set', props<{ selectedRow: Trainee | null }>());
+
 export const addTrainee = createAction('[Trainee] Add', props<{ trainee: Trainee }>());
 export const updateTrainee = createAction('[Trainee] Update', props<{ trainee: Trainee }>());
 export const deleteTrainee = createAction('[Trainee] Delete', props<{ id: number }>());

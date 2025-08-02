@@ -11,6 +11,6 @@
         <app-data-table [trainees]="traineesFiltered" [pageNum]="pageNum" (selectedRow)="onSelect($event)"
             [selectedTrainee]="selected" (pageIndex)="onPageIndex($event)"></app-data-table>
 
-        <app-data-details [trainee]="selected" [form]="form" (remove)="onRemove($event)"></app-data-details>
+        <app-data-details [trainee]="selected" [form]="form" (remove)="onRemove($event)" ></app-data-details>
     </div>
 </div>

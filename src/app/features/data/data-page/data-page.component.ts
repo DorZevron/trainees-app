@@ -37,6 +37,7 @@ export class DataPageComponent implements OnDestroy {
   pageNum: number = 0;
   form: FormGroup;
 
+
   constructor(private fb: FormBuilder) {
     console.log('DataDetailsComponent נוצר');
 
@@ -50,10 +51,7 @@ export class DataPageComponent implements OnDestroy {
   }
 
 
-
-
   ngOnInit() {
-
     this.$trainees.subscribe(trainees => {
       if (trainees.length !== 0) {
         this.trainees = trainees;
@@ -92,7 +90,9 @@ export class DataPageComponent implements OnDestroy {
     this.store.dispatch(DataActions.setTraineesFiltered({ traineesFiltered: this.traineesFiltered }));
     this.store.dispatch(DataActions.setTrainees({ trainees: this.trainees }));
     this.store.dispatch(DataActions.setPageIndex({ pageIndex: this.pageNum }));
+    // this.store.dispatch(DataActions.selectTraineeRow({ selectedRow: this.selected }));
   }
+
 
   filter() {
     this.errorMessage = '';
@@ -136,23 +136,20 @@ export class DataPageComponent implements OnDestroy {
   onSelect(trainee: Trainee) {
     this.selected = { ...trainee };
     this.form.patchValue(trainee);
-    console.log('קומפוננטה אב נבחר מתאמן:', this.selected);
-    this.store.dispatch(DataActions.selectTraineeRow({ selectedRow: this.selected }));
   }
 
   onPageIndex(pageIndex: number) {
     this.pageNum = pageIndex;
-    console.log('onPageIndex:', this.pageNum);
   }
 
   onAddOrUpdate(trainee: Trainee) {
     if (trainee.id) {
       this.trainees = this.dataService.updateTrainee(trainee);
-      // this.store.dispatch(DataActions.updateTrainee({ trainee })); // I'm passing the array after changes to ngOnDestroy
+      // this.store.dispatch(DataActions.updateTrainee({ trainee })); // the array was moved to ngOnDestroy
     }
     else {
       this.trainees = this.dataService.addTrainee(trainee);
-      // this.store.dispatch(DataActions.addTrainee({ trainee })); // I'm passing the array after changes to ngOnDestroy
+      // this.store.dispatch(DataActions.addTrainee({ trainee })); // the array was moved to ngOnDestroy
     }
   }
 
@@ -160,8 +157,16 @@ export class DataPageComponent implements OnDestroy {
   onRemove(id: number) {
     this.trainees = this.dataService.deleteTrainee(id);
     this.filter();
-    if (this.selected && this.selected.id === id)
+    if (this.selected && this.selected.id === id) {
       this.selected = null;
-    // this.store.dispatch(DataActions.deleteTrainee({ id })); // I'm passing the array after changes to ngOnDestroy
+      this.form.reset();
+    }
+    // this.store.dispatch(DataActions.deleteTrainee({ id })); // the array was moved to ngOnDestroy
   }
+
+  // onClearForm() {
+  //   this.form.reset();
+  //   this.selected = null;
+  //   this.store.dispatch(DataActions.selectTraineeRow({ selectedRow: null }));
+  // }
 }

@@ -24,10 +24,6 @@ export class MonitorTableComponent {
   ];
   columnsToDisplay: string[] = this.structureTable.map(col => col.prop);
 
-  // ngOnInit() {
-  //   console.log('MonitorTableComponent נוצר');
-  // }
-
 
   get currentPage() {
     const start = this.pageNum * this.pageSize;

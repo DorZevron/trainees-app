@@ -17,11 +17,10 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 export class MonitorFilterComponent {
 
   @Input() idFilter: string = '';
+  @Input() formCheckBox!: FormGroup;
   @Input() nameFilter: string = '';
   @Output() cbPassed = new EventEmitter<boolean>();
   @Output() cbFailed = new EventEmitter<boolean>();
-
-  @Input() formCheckBox!: FormGroup;
 
 
 

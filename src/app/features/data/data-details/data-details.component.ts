@@ -21,6 +21,7 @@ export class DataDetailsComponent implements OnChanges {
   @Input() trainee: Trainee | null = null;
   @Input() form!: FormGroup;
   @Output() remove = new EventEmitter<number>();
+  // @Output() btnClearForm = new EventEmitter<void>();
 
   editable = signal<Trainee | null>(null);
   private cd = inject(ChangeDetectorRef);
@@ -48,6 +49,7 @@ export class DataDetailsComponent implements OnChanges {
 
   clearForm() {
     this.form.reset();
+    // this.btnClearForm.emit()
   }
 
   onRemove() {
