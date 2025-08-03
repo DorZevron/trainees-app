@@ -23,10 +23,12 @@ export class MonitorPageComponent {
 
   private store = inject(Store);
 
-  $trainees: Observable<Trainee[]> = this.store.select(DataSelectors.selectTraineesFiltered);
+  $trainees: Observable<Trainee[]> = this.store.select(DataSelectors.selectTrainees);
   $cbPassed: Observable<boolean> = this.store.select(MonitorSelectors.selectCbPassed);
   $cbFailed: Observable<boolean> = this.store.select(MonitorSelectors.selectCbFailed);
   $traineesFilteredMonitor: Observable<TraineeMonitor[]> = this.store.select(MonitorSelectors.selectTraineesFiltered);
+  $idFilter: Observable<string> = this.store.select(MonitorSelectors.selectIdFilter);
+  $nameFilter: Observable<string> = this.store.select(MonitorSelectors.selectNameFilter);
 
   trainees: Trainee[] = [];
   idFilter: string = '';
@@ -74,6 +76,18 @@ export class MonitorPageComponent {
       }
     });
 
+    this.$idFilter.subscribe(idFilter => {
+      if (idFilter !== undefined) {
+        this.idFilter = idFilter;
+      }
+    });
+
+    this.$nameFilter.subscribe(nameFilter => {
+      if (nameFilter !== undefined) {
+        this.nameFilter = nameFilter;
+      }
+    });
+
   }
 
 
@@ -82,6 +96,8 @@ export class MonitorPageComponent {
     this.store.dispatch(MonitorActions.setPassedFilter({ cbPassed: this.formCheckBox.get('passed')?.value }));
     this.store.dispatch(MonitorActions.setFailedFilter({ cbFailed: this.formCheckBox.get('failed')?.value }));
     this.store.dispatch(MonitorActions.setTraineesFiltered({ traineesFiltered: this.traineesFiltered }));
+    this.store.dispatch(MonitorActions.setIdFilter({ idFilter: this.idFilter }));
+    this.store.dispatch(MonitorActions.setNameFilter({ nameFilter: this.nameFilter }));
   }
 
 
@@ -121,27 +137,45 @@ export class MonitorPageComponent {
     }
 
     if (this.nameFilter) {
-      arr = arr.filter(trainee => trainee.name.includes(this.nameFilter));
+      arr = arr.filter(trainee => trainee.name.toLowerCase().includes(this.nameFilter.toLowerCase()));
     }
 
-    if (this.formCheckBox.get('passed')?.value) {
-      let passedArr = arr.filter(trainee => trainee.average >= 65);
-      this.traineesFiltered.push(...passedArr);
+    const passedChecked = this.formCheckBox.get('passed')?.value;
+    const failedChecked = this.formCheckBox.get('failed')?.value;
+
+    if (passedChecked && !failedChecked) {
+      arr = arr.filter(trainee => trainee.average >= 65);
     }
-    if (this.formCheckBox.get('failed')?.value) {
-      let failedArr = arr.filter(trainee => trainee.average < 65);
-      this.traineesFiltered.push(...failedArr);
+    else if (!passedChecked && failedChecked) {
+      arr = arr.filter(trainee => trainee.average < 65);
     }
+    else if (!passedChecked && !failedChecked) {
+      arr = [];
+    }
+
+    this.traineesFiltered = arr;
   }
 
 
   onCbPassed(value: boolean) {
     this.formCheckBox.get('passed')?.setValue(value);
-    this.getNewTraineeAverages();
+    this.filter();
+
   }
 
   onCbFailed(value: boolean) {
     this.formCheckBox.get('failed')?.setValue(value);
-    this.getNewTraineeAverages();
+    this.filter();
+
+  }
+
+  onIdFilterChanged(value: string) {
+    this.idFilter = value;
+    this.filter();
+  }
+
+  onNameFilterChanged(value: string) {
+    this.nameFilter = value;
+    this.filter();
   }
 }
