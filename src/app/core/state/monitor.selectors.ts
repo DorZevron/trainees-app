@@ -21,3 +21,13 @@ export const selectTraineesFiltered = createSelector(
     selectMonitorState,
     (state) => state.traineesFiltered
 );
+
+export const selectIdFilter = createSelector(
+    selectMonitorState,
+    (state) => state.idFilter
+);
+
+export const selectNameFilter = createSelector(
+    selectMonitorState,
+    (state) => state.nameFilter
+);

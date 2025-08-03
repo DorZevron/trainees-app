@@ -2,12 +2,12 @@
     <div class="fields">
         <mat-form-field appearance="outline" class="filter-field">
             <mat-label>IDs</mat-label>
-            <input matInput [(ngModel)]="idFilter">
+            <input matInput [(ngModel)]="idFilter" (input)="onIdFilterChange()">
         </mat-form-field>
 
         <mat-form-field appearance="outline" class="filter-field">
             <mat-label>Name</mat-label>
-            <input matInput [(ngModel)]="nameFilter">
+            <input matInput [(ngModel)]="nameFilter" (input)="onNameFilterChange()">
         </mat-form-field>
     </div>
     <div class="actions">

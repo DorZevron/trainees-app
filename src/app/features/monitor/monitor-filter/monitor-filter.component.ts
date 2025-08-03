@@ -21,6 +21,8 @@ export class MonitorFilterComponent {
   @Input() nameFilter: string = '';
   @Output() cbPassed = new EventEmitter<boolean>();
   @Output() cbFailed = new EventEmitter<boolean>();
+  @Output() idFilterChanged = new EventEmitter<string>();
+  @Output() nameFilterChanged = new EventEmitter<string>();
 
 
 
@@ -41,4 +43,11 @@ export class MonitorFilterComponent {
     this.cbFailed.emit(this.formCheckBox.get('failed')?.value);
   }
 
+  onIdFilterChange() {
+    this.idFilterChanged.emit(this.idFilter.trim());
+  }
+
+  onNameFilterChange() {
+    this.nameFilterChanged.emit(this.nameFilter.trim());
+  }
 }

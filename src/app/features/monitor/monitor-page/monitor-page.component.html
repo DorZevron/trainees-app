@@ -2,7 +2,9 @@
 
     <div class="filter">
         <app-monitor-filter [idFilter]="idFilter" [nameFilter]="nameFilter" [formCheckBox]="formCheckBox"
-            (cbPassed)="onCbPassed($event)" (cbFailed)="onCbFailed($event)"></app-monitor-filter>
+            (cbPassed)="onCbPassed($event)" (cbFailed)="onCbFailed($event)"
+            (idFilterChanged)="onIdFilterChanged($event)"
+            (nameFilterChanged)="onNameFilterChanged($event)"></app-monitor-filter>
     </div>
 
     <div class="main">
